@@ -1,5 +1,5 @@
 // server.js
-
+// Process and send the data to client on request
 // =============================================================================
 
 // call the packages we need
@@ -15,16 +15,13 @@ var cron = require('node-cron');
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: false }))
-
-app.use(bodyParser.json())
-
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 
 var port = process.env.PORT || 8080;        // set our port
 
-// ROUTES FOR OUR API
+// Routes for our api
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
@@ -40,6 +37,7 @@ app.get('/getCurrency', function(request, response) {
  });
 
 
+//http request to send the converted data 
 app.get('/convert', function(request, response) {
   console.log('request on rsvp -->'+request.url);
 
@@ -51,6 +49,7 @@ app.get('/convert', function(request, response) {
   
 });
 
+//Sends the Array of entire currency values to reproduce a graph
 app.get('/getGraph', function(request, response) {
   console.log('request on getGraph -->'+request.url);
   response.send(dataArray);
@@ -59,8 +58,8 @@ app.get('/getGraph', function(request, response) {
 
 app.use('/', router);
 
-// START THE SERVER
-// =============================================================================
+// Start the Server
+//=================================//
 app.listen(port);
 console.log('Magic happens on port ' + port);
 initialize();
@@ -70,6 +69,7 @@ var dataArray=[];
 var data = ''; 
 
 
+// function to fetch data fro the URL. Will be called at the end of each day
 function initialize(){
 http.get('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml', function(res) {
   
@@ -96,8 +96,11 @@ http.get('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml', func
 }
 
 
-cron.schedule('0 10 13 * * *' , function(){
+/*
+ * for scheduling job that fetches xml every day. 
+ */
+cron.schedule('0 0 19 * * *' , function(){
   dataArray=[];
   initialize();
-  console.log('running a task every day');
-}, null, true, 'Asia/Kolkata');
+  console.log('running a scheduler every day to fecth data');
+}, null, true, 'Europe/Budapest');
