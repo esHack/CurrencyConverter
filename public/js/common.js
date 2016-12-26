@@ -35,12 +35,15 @@ app.controller("MyController", function($scope,$http) {
     }
 
   $scope.convert=function(){
-
+     $('.row').css('opacity','0');
      if($scope.fromCurrency==undefined || $scope.toCurrency==undefined || document.getElementById('currency').value=='') return false;
        $http.get('/convert', {
         params: { from: $scope.fromCurrency,to:$scope.toCurrency,currency:document.getElementById('currency').value} }).then(function(response) {
           console.log(response.data);
           $scope.name=response.data;
+          document.getElementById("textforconversion").textContent="1 "+$scope.fromCurrency+" equals "+ 
+          ($scope.name/document.getElementById('currency').value).toFixed(2)+" " + $scope.toCurrency;
+          $('.row').css('opacity','1');
         });
     }
 
