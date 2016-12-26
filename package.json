@@ -1,0 +1,10 @@
+{
+  "name": "realeyes",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "node-cron": "^1.1.2",
+    "xml2js": "^0.4.17"
+  }
+}

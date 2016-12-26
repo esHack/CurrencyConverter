@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>4 Real Eyes </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+  <script src="http://code.shutterstock.com/rickshaw/vendor/d3.v3.js"></script>
+  <script src="http://code.shutterstock.com/rickshaw/rickshaw.js"></script>
+  <script src="/js/common.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://code.shutterstock.com/rickshaw/src/css/graph.css">
+  <link type="text/css" rel="stylesheet" href="http://code.shutterstock.com/rickshaw/src/css/detail.css">
+  <link type="text/css" rel="stylesheet" href="http://code.shutterstock.com/rickshaw/src/css/legend.css">
+  <link type="text/css" rel="stylesheet" href="http://code.shutterstock.com/rickshaw/examples/css/lines.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50" ng-app="myapp">
+  <form>
+
+    
+
+
+
+
+  <div id="tour" class="bg-1">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="#myPage"><i>CURRENCY CONVERTER</i></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#myPage">HOME</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">May be in future 1</a></li>
+                  <li><a href="#">other conversions</a></li>
+                  <li><a href="#">Media</a></li> 
+                </ul>
+              </li>
+              <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </nav><br><br>
+
+
+    <div class="container" ng-controller="MyController"> 
+
+      <p class="text-left">Select any two currencies.. and Click Convert..!</p><br>
+
+         <div class="row text-center">
+
+           <div class="col-sm-2">
+            <input type="text" class="form-control" id="currency" placeholder="Enter Value" required >
+           </div>
+
+
+           <div class="col-sm-2">
+            <select id="select-currency" name="from" ng-model="x" ng-options="x as x for x in from" ng-change="updateFrom(x)" required>
+             <option value="">Select Currency</option> 
+            </select>
+           </div>
+
+
+          <div class="col-sm-2">
+           <select id="select-currency" name="to" ng-model="y" ng-options="y for y in to" ng-change="updateTo(y)" required >
+            <option value="">Select Currency</option> 
+           </select>
+          </div>
+
+          <div class="col-sm-2">
+           <button class="btn" data-toggle="modal" ng-click="convert();">Convert > </button>
+          </div>
+
+          <div class="col-sm-2">
+           <input type="text" class="form-control" id="result" placeholder="Converted Value" ng-value="name" disabled="true">
+          </div>
+
+     </div>
+
+    <br><br>
+    <span><b><i>Comparision of various currencies:</i></b></span> <span id="text-span">Check any Currency  &#8594;  &#8594;</span>
+    
+    <br><br>
+    <div id="chart_container" >
+      <div id="chart"></div>
+       <div id="x_axis"></div>
+        <div id="y_axis"></div>
+        
+      <div id="slider"></div>
+    </div>
+
+    <div id="legend_container">
+        <div id="smoother" title="Smoothing"></div>
+        <div id="legend" ></div>
+      </div>
+
+  </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="text-center">
+  <br><br>
+  <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p>Scroll to top</p> 
+</footer>
+
+<script>
+document.getElementById("legend").onclick = function() {
+  formatAxis();
+};
+
+function formatAxis(){
+$('#x_axis text').css('fill', 'white');
+$('#x_axis path').css('stroke', 'white');
+$('#y_axis text').css('fill', 'white');
+$('#y_axis path').css('stroke', 'white');
+$('#legend .action').css('opacity','1');
+}
+
+</script>
+</form>
+</body>
+</html>
