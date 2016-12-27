@@ -35,8 +35,8 @@ app.controller("MyController", function($scope,$http) {
     }
 
   $scope.convert=function(){
-     $('.row').css('opacity','0');
-     if($scope.fromCurrency==undefined || $scope.toCurrency==undefined || document.getElementById('currency').value=='') return false;
+     $('.row').css('opacity','0.5');
+     if($scope.fromCurrency==undefined || $scope.toCurrency==undefined || document.getElementById('currency').value=='') {$('.row').css('opacity','1');return false;}
        $http.get('/convert', {
         params: { from: $scope.fromCurrency,to:$scope.toCurrency,currency:document.getElementById('currency').value} }).then(function(response) {
           console.log(response.data);
