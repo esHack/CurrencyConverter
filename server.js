@@ -68,15 +68,6 @@ var map={};
 var dataArray=[];
 var data = ''; 
 
-var options = {
-  hostname: 'www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml',
-  port: 443,
-  path: '/',
-  method: 'GET',
-  headers: {
-     'Content-Type': 'text/plain',
-  }
-};
 
 // function to fetch data fro the URL. Will be called at the end of each day
 function initialize(){
