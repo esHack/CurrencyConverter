@@ -7,7 +7,7 @@ var express    = require('express');
 var app        = express();                 
 var bodyParser = require('body-parser');
 var path = require('path');
-var http = require('http');
+var http = require('https');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 var fs = require('fs');
@@ -68,15 +68,26 @@ var map={};
 var dataArray=[];
 var data = ''; 
 
+var options = {
+  hostname: 'www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml',
+  port: 443,
+  path: '/',
+  method: 'GET',
+  headers: {
+     'Content-Type': 'text/plain',
+  }
+};
 
 // function to fetch data fro the URL. Will be called at the end of each day
 function initialize(){
-http.get('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml', function(res) {
+http.get('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml', function(res) {
   
      if (res.statusCode >= 200 && res.statusCode < 400) {
        res.on('data', function(data_) { data += data_.toString(); });
        res.on('end', function() {
+         //console.log(data);
          data = data.substring(data.indexOf('<Cube>'),data.lastIndexOf('</Cube')+7);
+         //console.log(data);
          parser.parseString(data, function (err, result) {
 
           for (var k = 0; k < result.Cube.Cube.length; k++) {
